@@ -1,0 +1,28 @@
+name: AArch64 Linux (GNU)
+
+on: push
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          repository: denoland/deno
+          ref: v1.9.2
+          submodules: recursive
+
+      - uses: actions-rs/toolchain@v1
+        with:
+          target: aarch64-unknown-linux-gnu
+          toolchain: stable
+          profile: minimal
+          override: true
+
+      - uses: actions-rs/cargo@v1
+        with:
+          use-cross: true
+          command: build
+          args: --target aarch64-unknown-linux-gnu --release --locked
