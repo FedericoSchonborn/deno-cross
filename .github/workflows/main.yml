@@ -1,4 +1,4 @@
-name: AArch64 Linux (GNU)
+name: CI
 
 on: push
 
@@ -6,6 +6,10 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target:
+          - aarch64-unknown-linux-gnu
 
     steps:
       - uses: actions/checkout@v2
@@ -16,7 +20,7 @@ jobs:
 
       - uses: actions-rs/toolchain@v1
         with:
-          target: aarch64-unknown-linux-gnu
+          target: ${{ matrix.target }}
           toolchain: stable
           profile: minimal
           override: true
@@ -25,4 +29,12 @@ jobs:
         with:
           use-cross: true
           command: build
-          args: --target aarch64-unknown-linux-gnu --release --locked
+          args: --target ${{ matrix.target }} --release --locked
+
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
