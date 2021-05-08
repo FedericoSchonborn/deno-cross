@@ -29,7 +29,7 @@ jobs:
         with:
           use-cross: true
           command: build
-          args: --target ${{ matrix.target }} --release --locked
+          args: -p deno --target ${{ matrix.target }} --release --locked
 
       - uses: actions/cache@v2
         with:
