@@ -8,8 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        target:
-          - aarch64-unknown-linux-gnu
+        include:
+          - target: aarch64-unknown-linux-gnu
 
     steps:
       - uses: actions/checkout@v2
@@ -38,3 +38,8 @@ jobs:
             ~/.cargo/git
             target
           key: ${{ runner.os }}-cargo-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.target }}
+          path: target/${{ matrix.target }}/release/deno
