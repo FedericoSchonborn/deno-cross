@@ -7,6 +7,9 @@ on:
     paths:
       - .github/workflows/*.yml
 
+env:
+  DENO_TAG: v1.10.2
+
 jobs:
   build:
     name: Build
@@ -21,7 +24,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: denoland/deno
-          ref: v1.10.1
+          ref: ${{ env.DENO_TAG }}
           submodules: recursive
 
       - name: Toolchain Cache
@@ -60,5 +63,5 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ matrix.target }}
+          name: deno-${{ env.DENO_TAG }}-${{ matrix.target }}
           path: target/${{ matrix.target }}/release/deno
