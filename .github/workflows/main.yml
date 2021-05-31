@@ -8,7 +8,7 @@ on:
       - .github/workflows/*.yml
 
 env:
-  DENO_TAG: v1.10.2
+  DENO_TAG: v1.10.3
 
 jobs:
   build:
