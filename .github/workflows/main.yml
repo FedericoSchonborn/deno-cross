@@ -9,6 +9,7 @@ on:
 
 env:
   DENO_TAG: v1.13.0
+  V8_FROM_SOURCE: 1
 
 jobs:
   build:
@@ -58,7 +59,7 @@ jobs:
         with:
           use-cross: true
           command: build
-          args: -p deno --target ${{ matrix.target }} --release --locked
+          args: -vv -p deno --target ${{ matrix.target }} --release --locked
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
