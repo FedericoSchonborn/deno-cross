@@ -59,7 +59,7 @@ jobs:
         with:
           use-cross: true
           command: build
-          args: -vv -p deno --target ${{ matrix.target }} --release --locked
+          args: -vv --locked --target ${{ matrix.target }} --release
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
