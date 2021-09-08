@@ -9,7 +9,6 @@ on:
 
 env:
   DENO_TAG: v1.13.2
-  V8_FROM_SOURCE: 1
 
 jobs:
   build:
